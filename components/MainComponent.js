@@ -104,7 +104,7 @@ const AboutNavigator = createStackNavigator({
 
 const ReservationNavigator = createStackNavigator({
   Reservation: { screen: Reservation }
-}, {
+  }, {
   navigationOptions: ({ navigation }) => ({
     headerStyle: {
         backgroundColor: "#512DA8"
@@ -114,8 +114,8 @@ const ReservationNavigator = createStackNavigator({
     },
     headerTintColor: "#fff",
     headerLeft: <Icon name="menu" size={24}
-      iconStyle={{ color: 'white' }} 
-      onPress={ () => navigation.navigate('DrawerToggle') } />    
+       color= 'white' 
+      onPress={ () => navigation.toggleDrawer() } />    
   })
 })
 

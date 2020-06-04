@@ -1,5 +1,54 @@
 import * as ActionTypes from './ActionTypes';
 import { baseUrl } from '../shared/baseUrl';
+import { ActivityIndicator } from 'react-native';
+
+export const addComment = (comment) => ({
+    type: ActionTypes.ADD_COMMENT,
+    payload: comment
+});
+
+export const postComment = (dishId,rating,author,comment) => (dispatch) => {
+    const newComment = {
+        dishId: dishId,
+        rating: rating,
+        author: author,
+        comment: comment
+    }
+    newComment.date = new Date().toISOString();
+    console.log(dishId)
+    console.log(rating)
+    console.log(author)
+    console.log(comment)
+    
+    return fetch(baseUrl + 'comments', {
+        method: 'POST',
+        body: JSON.stringify(newComment),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        credentials: 'same-origin'
+    })
+        .then(response => {
+            if(response.ok) {
+                return response;
+            }
+            else {
+                var error= new Error('Error '+ response.status +': ' + response.statusText);                
+                error.response = response;
+                throw error;
+            }
+        },
+        error=> {
+            var errmess = new Error(error.message);
+            throw errmess;
+        })
+        .then(response => response.json())
+        .then(response => dispatch(addComment(response),2000))
+        .catch(error => {console.log('Post comments'+error.message)
+                alert('Your comment could not pe posted\nError'+error.message) })
+
+}
+
 
 export const fetchComments = () => (dispatch) => {
     return fetch(baseUrl + 'comments')
@@ -11,11 +60,11 @@ export const fetchComments = () => (dispatch) => {
           error.response = response;
           throw error;
         }
-      },
-      error => {
-            var errmess = new Error(error.message);
-            throw errmess;
-      })
+    },
+    error => {
+        var errmess = new Error(error.message);
+        throw errmess;
+    })
     .then(response => response.json())
     .then(comments => dispatch(addComments(comments)))
     .catch(error => dispatch(commentsFailed(error.message)));
@@ -44,11 +93,11 @@ export const fetchDishes = () => (dispatch) => {
           error.response = response;
           throw error;
         }
-      },
-      error => {
-            var errmess = new Error(error.message);
-            throw errmess;
-      })
+    },
+    error => {
+        var errmess = new Error(error.message);
+        throw errmess;
+    })
     .then(response => response.json())
     .then(dishes => dispatch(addDishes(dishes)))
     .catch(error => dispatch(dishesFailed(error.message)));
@@ -81,11 +130,11 @@ export const fetchPromos = () => (dispatch) => {
             error.response = response;
             throw error;
         }
-        },
-        error => {
-            var errmess = new Error(error.message);
-            throw errmess;
-        })
+    },
+    error => {
+        var errmess = new Error(error.message);
+        throw errmess;
+    })
     .then(response => response.json())
     .then(promos => dispatch(addPromos(promos)))
     .catch(error => dispatch(promosFailed(error.message)));
@@ -118,11 +167,11 @@ export const fetchLeaders = () => (dispatch) => {
             error.response = response;
             throw error;
         }
-        },
-        error => {
-            var errmess = new Error(error.message);
-            throw errmess;
-        })
+    },
+    error => {
+        var errmess = new Error(error.message);
+        throw errmess;
+    })
     .then(response => response.json())
     .then(leaders => dispatch(addLeaders(leaders)))
     .catch(error => dispatch(leadersFailed(error.message)));
@@ -142,15 +191,13 @@ export const addLeaders = (leaders) => ({
     payload: leaders
 });
 
-export const postFavorite = (dishId)  => (dispatch) => {
-
+export const postFavorite = (dishId) => (dispatch) => {
     setTimeout(() => {
         dispatch(addFavorite(dishId));
-    }, 2000);
-};
-
+    },2000);
+}
 
 export const addFavorite = (dishId) => ({
     type: ActionTypes.ADD_FAVORITE,
     payload: dishId
-});
+})

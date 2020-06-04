@@ -85,7 +85,6 @@ class Reservation extends Component {
                     dateInput: {
                         marginLeft: 36
                     }
-                    // ... You can check the source to find the other keys. 
                     }}
                     onDateChange={(date) => {this.setState({date: date})}}
                 />
