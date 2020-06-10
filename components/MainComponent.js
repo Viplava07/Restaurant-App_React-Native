@@ -71,20 +71,21 @@ const HomeNavigator = createStackNavigator({
 });
 
 const LoginNavigator = createStackNavigator({
-  Login: { screen: Login }
+  Login:Login 
 }, {
-navigationOptions: ({ navigation }) => ({
-  headerStyle: {
-      backgroundColor: "#512DA8"
-  },
-  headerTitleStyle: {
-      color: "#fff"            
-  },
-  headerTintColor: "#fff",
-  headerLeft: <Icon name="menu" size={24}
-    iconStyle={{ color: 'white' }} 
-    onPress={ () => navigation.toggleDrawer() } />    
-})
+  navigationOptions: ({ navigation }) => ({
+    headerStyle: {
+        backgroundColor: "#512DA8"
+    },
+    headerTitleStyle: {
+        color: "#fff"            
+    },
+    title: 'Login',
+    headerTintColor: "#fff",
+    headerLeft: <Icon name="menu" size={24}
+      iconStyle={{ color: 'white' }} 
+      onPress={ () => navigation.toggleDrawer() } />    
+  })
 });
 
 const ContactNavigator = createStackNavigator({

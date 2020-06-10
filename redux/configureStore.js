@@ -1,4 +1,5 @@
 import {createStore, combineReducers, applyMiddleware} from 'redux';
+import { AsyncStorage } from 'react-native';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import { dishes } from './dishes';
@@ -11,7 +12,7 @@ import storage from 'redux-persist/es/storage';
 
 const config = {
     key: 'root',
-    storage,
+    storage: AsyncStorage,
     debug: true
   }
 
