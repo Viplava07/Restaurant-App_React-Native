@@ -6,7 +6,7 @@ import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 import { baseUrl } from '../shared/baseUrl';
 
-class Login extends Component {
+class Register extends Component {
 
     constructor(props) {
         super(props);
@@ -14,42 +14,57 @@ class Login extends Component {
         this.state = {
             username: '',
             password: '',
-            remember: false
+            firstname: '',
+            lastname: '',
+            email: '',
+            remember: false,
+            imageUrl: baseUrl + 'images/logo.png'
         }
     }
 
-    componentDidMount() {
-        SecureStore.getItemAsync('userinfo')
-            .then((userdata) => {
-                let userinfo = JSON.parse(userdata);
-                if (userinfo) {
-                    this.setState({username: userinfo.username});
-                    this.setState({password: userinfo.password});
-                    this.setState({remember: true})
-                }
-            })
-    }
+    getImageFromCamera = async () => {
+        const cameraPermission = await Permissions.askAsync(Permissions.CAMERA);
+        const cameraRollPermission = await Permissions.askAsync(Permissions.CAMERA_ROLL);
 
+        if (cameraPermission.status === 'granted' && cameraRollPermission.status === 'granted') {
+            let capturedImage = await ImagePicker.launchCameraAsync({
+                allowsEditing: true,
+                aspect: [4, 3],
+            });
+            if (!capturedImage.cancelled) {
+                console.log(capturedImage);
+                this.setState({imageUrl: capturedImage.uri });
+            }
+        }
+
+    }
+    
     static navigationOptions = {
-        title: 'Login',
+        title: 'Register',
     };
 
-    handleLogin() {
+    handleRegister() {
         console.log(JSON.stringify(this.state));
         if (this.state.remember)
             SecureStore.setItemAsync('userinfo', JSON.stringify({username: this.state.username, password: this.state.password}))
                 .catch((error) => console.log('Could not save user info', error));
-        else
-            SecureStore.deleteItemAsync('userinfo')
-                .catch((error) => console.log('Could not delete user info', error));
-
     }
 
     render() {
-        const { navigate } = this.props.navigation;
-
-        return (
+        return(
+            <ScrollView>
             <View style={styles.container}>
+                <View style={styles.imageContainer}>
+                    <Image 
+                        source={{uri: this.state.imageUrl}} 
+                        loadingIndicatorSource={require('./images/logo.png')}
+                        style={styles.image} 
+                        />
+                    <Button
+                        title="Camera"
+                        onPress={this.getImageFromCamera}
+                        />
+                </View>
                 <Input
                     placeholder="Username"
                     leftIcon={{ type: 'font-awesome', name: 'user-o' }}
@@ -64,6 +79,27 @@ class Login extends Component {
                     value={this.state.password}
                     containerStyle={styles.formInput}
                     />
+                <Input
+                    placeholder="First Name"
+                    leftIcon={{ type: 'font-awesome', name: 'user-o' }}
+                    onChangeText={(lastname) => this.setState({firstname})}
+                    value={this.state.firstname}
+                    containerStyle={styles.formInput}
+                    />
+                <Input
+                    placeholder="Last Name"
+                    leftIcon={{ type: 'font-awesome', name: 'user-o' }}
+                    onChangeText={(lastname) => this.setState({lastname})}
+                    value={this.state.lastname}
+                    containerStyle={styles.formInput}
+                    />
+                <Input
+                    placeholder="Email"
+                    leftIcon={{ type: 'font-awesome', name: 'envelope-o' }}
+                    onChangeText={(email) => this.setState({email})}
+                    value={this.state.email}
+                    containerStyle={styles.formInput}
+                    />
                 <CheckBox title="Remember Me"
                     center
                     checked={this.state.remember}
@@ -72,11 +108,11 @@ class Login extends Component {
                     />
                 <View style={styles.formButton}>
                     <Button
-                        onPress={() => this.handleLogin()}
-                        title="Login"
+                        onPress={() => this.handleRegister()}
+                        title="Register"
                         icon={
                             <Icon
-                                name='sign-in'
+                                name='user-plus'
                                 type='font-awesome'            
                                 size={24}
                                 color= 'white'
@@ -87,28 +123,10 @@ class Login extends Component {
                         }}
                         />
                 </View>
-                <View style={styles.formButton}>
-                    <Button
-                        onPress={() => navigate('Register')}
-                        title="Register"
-                        clear
-                        icon={
-                            <Icon
-                                name='user-plus'
-                                type='font-awesome'            
-                                size={24}
-                                color= 'blue'
-                            />
-                        }
-                        titleStyle={{
-                            color: "blue"
-                        }}
-                        />
-                </View>
             </View>
+            </ScrollView>
         );
     }
-
 }
 
 const styles = StyleSheet.create({
@@ -138,5 +156,4 @@ const styles = StyleSheet.create({
     }
 });
 
-
-export default Login;
+export default Register;

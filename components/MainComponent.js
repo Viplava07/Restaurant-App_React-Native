@@ -7,6 +7,7 @@ import Contact from './ContactComponent';
 import Favorites from './FavoriteComponent';
 import Login from './LoginComponent';
 import Reservation from './ReservationComponent';
+import Register from './RegisterComponent';
 import { View, Platform, Text, ScrollView, Image, StyleSheet } from 'react-native';
 import { createStackNavigator, createDrawerNavigator, DrawerItems, SafeAreaView } from 'react-navigation';
 import { Icon } from 'react-native-elements';
@@ -53,8 +54,8 @@ const MenuNavigator = createStackNavigator({
 }
 );
 
-const HomeNavigator = createStackNavigator({
-    Home: { screen: Home }
+const LoginNavigator = createStackNavigator({
+  Login: { screen: Login },Register: {screen: Register}
   }, {
     navigationOptions: ({ navigation }) => ({
       headerStyle: {
@@ -70,22 +71,21 @@ const HomeNavigator = createStackNavigator({
     })
 });
 
-const LoginNavigator = createStackNavigator({
-  Login:Login 
-}, {
-  navigationOptions: ({ navigation }) => ({
-    headerStyle: {
-        backgroundColor: "#512DA8"
-    },
-    headerTitleStyle: {
-        color: "#fff"            
-    },
-    title: 'Login',
-    headerTintColor: "#fff",
-    headerLeft: <Icon name="menu" size={24}
-      iconStyle={{ color: 'white' }} 
-      onPress={ () => navigation.toggleDrawer() } />    
-  })
+const HomeNavigator = createStackNavigator({
+    Home: { screen: Home }
+  }, {
+    navigationOptions: ({ navigation }) => ({
+      headerStyle: {
+          backgroundColor: "#512DA8"
+      },
+      headerTitleStyle: {
+          color: "#fff"            
+      },
+      headerTintColor: "#fff",
+      headerLeft: <Icon name="menu" size={24}
+      color= 'white'
+      onPress={ () => navigation.toggleDrawer() } />
+    })
 });
 
 const ContactNavigator = createStackNavigator({
