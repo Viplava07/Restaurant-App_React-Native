@@ -19,7 +19,7 @@ const mapStateToProps = state => {
     dishes: state.dishes,
     comments: state.comments,
     promotions: state.promotions,
-    leaders: state.leaders
+    leaders: state.leaders 
   }
 }
 
@@ -55,7 +55,8 @@ const MenuNavigator = createStackNavigator({
 );
 
 const LoginNavigator = createStackNavigator({
-  Login: { screen: Login },Register: {screen: Register}
+    Login: { screen: Login },
+    Register: {screen: Register}
   }, {
     navigationOptions: ({ navigation }) => ({
       headerStyle: {
