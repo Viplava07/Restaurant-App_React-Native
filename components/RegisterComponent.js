@@ -39,6 +39,18 @@ class Register extends Component {
         }
     }
     
+    getImageFromGallery = async () => {
+        let galleryImage  = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [4, 3],
+          });
+        if (!galleryImage.cancelled){
+            console.log(galleryImage);
+            this.processImage(galleryImage.uri);
+        }
+    }
+
     processImage = async (imageUri) => {
         let processedImage = await ImageManipulator.manipulateAsync(
             imageUri, 
@@ -72,9 +84,14 @@ class Register extends Component {
                         loadingIndicatorSource={require('./images/logo.png')}
                         style={styles.image} 
                         />
-                    <Button
+                    <Button 
                         title="Camera"
                         onPress={this.getImageFromCamera}
+                        />
+                    <Text></Text>
+                    <Button 
+                        title = "Gallery"
+                        onPress = {this.getImageFromGallery}
                         />
                 </View>
                 <Input
