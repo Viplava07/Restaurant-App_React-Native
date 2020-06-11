@@ -40,7 +40,7 @@ class Register extends Component {
     }
     
     processImage = async (imageUri) => {
-        let processedImage = await ImageManipulator.manipulate(
+        let processedImage = await ImageManipulator.manipulateAsync(
             imageUri, 
             [
                 {resize: {width: 400}}
@@ -49,7 +49,6 @@ class Register extends Component {
         );
         console.log(processedImage);
         this.setState({imageUrl: processedImage.uri });
-
     }
 
     static navigationOptions = {

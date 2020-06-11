@@ -1120,6 +1120,11 @@
     wcwidth "^1.0.1"
     ws "^1.1.0"
 
+"@react-native-community/netinfo@5.5.1":
+  version "5.5.1"
+  resolved "https://registry.yarnpkg.com/@react-native-community/netinfo/-/netinfo-5.5.1.tgz#6433d4d9d5fbe836f019e5a88a6a24b6e2dc50b9"
+  integrity sha512-6NKX/WzzC5FP2RSzoq+7CW/iIiRL2S6yN0JKiGvZ8EWAzJ43dbX5KG4kRa1JiKopAal5Vyh80dymbygeylwekQ==
+
 "@react-navigation/bottom-tabs@^5.5.2":
   version "5.5.2"
   resolved "https://registry.yarnpkg.com/@react-navigation/bottom-tabs/-/bottom-tabs-5.5.2.tgz#b3d95e2a05eba47f7aa34fb9f2331ddede0ee4d5"
@@ -2339,6 +2344,11 @@ expo-font@~8.1.0:
   dependencies:
     fbjs "1.0.0"
     fontfaceobserver "^2.1.0"
+
+expo-image-manipulator@^8.1.0:
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/expo-image-manipulator/-/expo-image-manipulator-8.1.0.tgz#63ae66e1a65e5be8c6ee7036fe88d53af551853f"
+  integrity sha512-ephPXtzEx32Js1SQ1B2IXdpi4Gn34DIMQGAOwrwOPfUuWXQX9jGxyX3tktIGMmQ7lHueVr0a8zdh6ME0YGHjkw==
 
 expo-image-picker@^8.1.0:
   version "8.1.0"
